@@ -503,7 +503,7 @@ class SystemFreshInstallation extends Command
 
         DB::table('role_user')->insert([
             'role_id' => Role::where('title', 'ADMINISTRADOR')->first()->id,
-            'user_id' => User::where('email', 'janine.jld@fab.mil.br')->first()->id,
+            'user_id' => User::where('email', 'janinejld@fab.mil.br')->first()->id,
         ]);
 
 
