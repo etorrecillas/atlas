@@ -35,7 +35,7 @@ class MilitaryOrganizationController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.admin.military_org.create');
     }
 
     /**
@@ -46,7 +46,23 @@ class MilitaryOrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'short' => 'required|unique:military_organizations,short',
+            'name' => 'required|unique:military_organizations,title',
+        ]);
+
+        try {
+            $newOm = MilitaryOrganization::create([
+                'short' => $request->short,
+                'title' => $request->name,
+            ]);
+
+            return redirect(route('admin.om.index'))->with('msg-success', 'OM '. $newOm->short .' cadastrada com sucesso.');
+        } catch (\Exception $e) {
+
+            return back()->with('msg-danger','Erro: '.$e->getMessage());
+        }
+
     }
 
     /**
