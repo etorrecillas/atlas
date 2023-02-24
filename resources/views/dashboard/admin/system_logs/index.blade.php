@@ -103,7 +103,7 @@
             });
 
             var table = $('#datatable_log').DataTable({
-                // dom: 'lfrtipB',
+                dom: 'lfrtipB',
                 language: {
                     "url": 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json'
                 },
@@ -114,45 +114,33 @@
                     [10, 25, 50, 100]
                 ],
                 responsive: true,
-                // buttons: {
-                //     buttons:
-                //         [
-                //             {
-                //                 extend: "excelHtml5",
-                //                 className: "btn-sm btn-success",
-                //                 title: "atlas_lista_om",
-                //                 exportOptions: {
-                //                     columns: ':not(:last-child)',
-                //                 }
-                //             },
-                //             {
-                //                 extend: "pdfHtml5",
-                //                 className: "btn-sm btn-danger",
-                //                 title: "atlas_lista_om",
-                //                 exportOptions: {
-                //                     columns: ':not(:last-child)',
-                //                 }
-                //             },
-                //             {
-                //                 extend: "copyHtml5",
-                //                 className: "btn-sm btn-info",
-                //                 title: "atlas_lista_om",
-                //                 text: "Copiar",
-                //                 exportOptions: {
-                //                     columns: ':not(:last-child)',
-                //                 }
-                //             },
-                //             {
-                //                 extend: "print",
-                //                 className: "btn-sm btn-info",
-                //                 title: "atlas_lista_om",
-                //                 text: "Imprimir",
-                //                 exportOptions: {
-                //                     columns: ':not(:last-child)',
-                //                 }
-                //             }
-                //         ],
-                // },
+                buttons: {
+                    buttons:
+                        [
+                            {
+                                extend: "excelHtml5",
+                                className: "btn-sm btn-success",
+                                title: "atlas_logs_sistema",
+                            },
+                            {
+                                extend: "pdfHtml5",
+                                className: "btn-sm btn-danger",
+                                title: "atlas_logs_sistema",
+                            },
+                            {
+                                extend: "copyHtml5",
+                                className: "btn-sm btn-info",
+                                title: "atlas_logs_sistema",
+                                text: "Copiar",
+                            },
+                            {
+                                extend: "print",
+                                className: "btn-sm btn-info",
+                                title: "atlas_logs_sistema",
+                                text: "Imprimir",
+                            }
+                        ],
+                },
                 columnDefs: [
                     { orderable: false, targets: [1] },
                 ],
