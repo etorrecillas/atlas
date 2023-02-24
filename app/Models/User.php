@@ -15,7 +15,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'ranking_id',
+        'military_branch_id',
+        'specialty_id',
+        'military_organization_id',
     ];
 
     /**
@@ -36,7 +42,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     //RELATIONSHIPS
     public function roles()
     {
@@ -56,6 +61,11 @@ class User extends Authenticatable
     public function militaryOrg()
     {
         return $this->belongsTo(MilitaryOrganization::class, 'military_organization_id', 'id');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(MilitaryBranch::class, 'military_branch_id', 'id');
     }
 
     //General Functions

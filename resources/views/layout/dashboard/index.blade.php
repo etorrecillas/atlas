@@ -45,7 +45,7 @@ The above copyright notice and this permission notice shall be included in all c
                 <img width="100%" src="{{ asset('assets/img/fab/fab-logo_small.png') }}" alt="" />
             </a>
             <a href="#" class="simple-text logo-normal">
-                ATLAS
+                Sistema ATLAS
             </a></div>
         <div class="sidebar-wrapper">
             <div class="user">
@@ -113,18 +113,18 @@ The above copyright notice and this permission notice shall be included in all c
                                     </li>
                                 @endcan
                                 @can('user_access')
-                                    <li class="nav-item  {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('home') }}">
+                                    <li class="nav-item  {{ request()->routeIs('admin.usuarios*') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('admin.usuarios.index') }}">
                                             <span class="sidebar-mini"> U </span>
                                             <span class="sidebar-normal"> Usuários </span>
                                         </a>
                                     </li>
                                 @endcan
                                 @can('activity_type_access')
-                                    <li class="nav-item  {{ request()->routeIs('admin.activity_types*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('home') }}">
+                                    <li class="nav-item  {{ request()->routeIs('admin.tipos_atividade*') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('admin.tipos_atividade.index') }}">
                                             <span class="sidebar-mini"> TA </span>
-                                            <span class="sidebar-normal"> Tipos de Atividades </span>
+                                            <span class="sidebar-normal"> Tipos de Atividade </span>
                                         </a>
                                     </li>
                                 @endcan

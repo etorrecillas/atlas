@@ -1,6 +1,6 @@
 @extends('layout.dashboard.index')
 
-@section('page_title', 'Administração | Organizações Militares')
+@section('page_title', 'Administração | Usuários')
 
 @section('content')
     <div class="row">
@@ -10,54 +10,60 @@
                     <div class="card-icon">
                         <i class="material-icons">list</i>
                     </div>
-                    <h4 class="card-title">Listar OM</h4>
+                    <h4 class="card-title">Listar Usuários</h4>
                 </div>
                 <div class="card-body ">
                     <div class="container">
                         <div class="tab-content tab-space">
                             <div class="row">
                                 <div class="table-responsive table-striped">
-                                    <table id="datatable_om" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                    <table id="datatable_user" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                         <thead>
                                         <tr>
-                                            <th data-priority="1">Sigla</th>
-                                            <th data-priority="2">Nome</th>
-                                            <th data-priority="3">Atividades</th>
-                                            <th data-priority="4">Usuários</th>
-                                            <th data-priority="5" data-orderable="false" class="disabled-sorting text-right">Ações</th>
+                                            <th data-priority="2">Posto/Graduação</th>
+                                            <th data-priority="1">Nome de Guerra</th>
+                                            <th data-priority="3">OM</th>
+                                            <th data-priority="4">Email</th>
+                                            <th data-priority="5">Acesso</th>
+                                            <th data-priority="6" data-orderable="false" class="disabled-sorting text-right">Ações</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>Sigla</th>
-                                            <th>Nome</th>
-                                            <th>Atividades</th>
-                                            <th>Usuários</th>
+                                            <th>Posto/Graduação</th>
+                                            <th>Nome de Guerra</th>
+                                            <th>OM</th>
+                                            <th>Email</th>
+                                            <th>Acesso</th>
                                             <th data-orderable="false" class="disabled-sorting text-right">Ações</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        @foreach($allOm as $om)
+                                        @foreach($allUsers as $user)
                                             <tr>
-                                                <td>{{ $om->short }}</td>
-                                                <td>{{ $om->title }}</td>
-                                                <td>{{ $om->activities_count }}</td>
-                                                <td>{{ $om->users_count }}</td>
+                                                <td>{{ $user->ranking->short }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ isset($user->militaryOrg->short) ? $user->militaryOrg->short : "Sem OM" }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->roles->first()->title }}</td>
                                                 <td>
                                                     <div class="td-actions text-right justify-content-end">
-                                                        <a href="{{ route('admin.om.show', $om) }}" class="btn btn-link btn-sm btn-primary btn-just-icon view" data-original-title="" title="">
+                                                        <a href="{{ route('admin.usuarios.show', $user) }}" class="btn btn-link btn-sm btn-primary btn-just-icon view" data-original-title="" title="">
                                                             <i class="material-icons">visibility</i>
                                                         </a>
-                                                        <a href="{{ route('admin.om.edit', $om) }}" class="btn btn-link btn-sm btn-primary btn-just-icon edit" data-original-title="" title="">
+                                                        <a href="{{ route('admin.usuarios.edit', $user) }}" class="btn btn-link btn-sm btn-primary btn-just-icon edit" data-original-title="" title="">
                                                             <i class="material-icons">edit</i>
                                                         </a>
-                                                        <button data-form-id="form-delete-{{ $om->id }}" class="btn btn-link btn-sm btn-danger btn-just-icon remove btn-delete">
-                                                            <i class="material-icons">delete_forever</i>
-                                                        </button>
-                                                        <form id="form-delete-{{ $om->id }}" action="{{ route('admin.om.destroy', $om) }}" class="form-horizontal" method="POST">
-                                                        @csrf
-                                                        @method("DELETE")
-                                                        </form>
+                                                        @if($user->id != auth()->user()->id)
+                                                            <button data-form-id="form-delete-{{ $user->id }}" class="btn btn-link btn-sm btn-danger btn-just-icon remove btn-delete">
+                                                                <i class="material-icons">delete_forever</i>
+                                                            </button>
+
+                                                            <form id="form-delete-{{ $user->id }}" action="{{ route('admin.usuarios.destroy', $user) }}" class="form-horizontal" method="POST">
+                                                                @csrf
+                                                                @method("DELETE")
+                                                            </form>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
@@ -67,11 +73,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                &nbsp;
+
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="{{ route('admin.om.create') }}" class="btn btn-primary pull-left">+ Cadastrar nova OM</a>
+                                    <a href="{{ route('admin.usuarios.create') }}" class="btn btn-primary pull-left">+ Cadastrar novo usuário</a>
                                 </div>
                             </div>
                         </div>
@@ -88,9 +94,9 @@
         $(document).ready(function () {
 
             // $.fn.dataTable.moment('DD/MM/YYYY HH:mm');
-            $('#datatable_om thead tr').clone(true).appendTo('#datatable_om thead');
-            $('#datatable_om thead tr:eq(0) th').each(function(i) {
-                var searchable = [0, 1, 2, 3];
+            $('#datatable_user thead tr').clone(true).appendTo('#datatable_user thead');
+            $('#datatable_user thead tr:eq(0) th').each(function(i) {
+                var searchable = [0, 1, 2, 3, 4];
                 if (searchable.includes(i)) {
                     var title = $(this).text();
                     $(this).html('<input class="form-control form-control-sm" type="text" placeholder="Pesquisar ' + title + '" />');
@@ -109,12 +115,13 @@
                 }
             });
 
-            var table = $('#datatable_om').DataTable({
+
+            var table = $('#datatable_user').DataTable({
                 dom: 'lfrtipB',
                 language: {
-                    "url": 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json'
+                    url: 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json'
                 },
-                order: [[0, 'asc']],
+                order: [[1, 'asc']],
                 pagingType: "full_numbers",
                 lengthMenu: [
                     [10, 25, 50, 100],
@@ -161,8 +168,8 @@
                         ],
                 },
                 columnDefs: [
-                    { orderable: false, targets: [4] },
-                    { searchable: false, targets: 4}
+                    { orderable: false, targets: [0,5] },
+                    { searchable: false, targets: 5}
                 ],
 
 
@@ -173,7 +180,7 @@
                 swal({
                     title: 'Você tem certeza?',
                     type: 'warning',
-                    text: 'Militares e atividades desta OM ficarão sem OM atribuída',
+                    text: 'O usuário será excluído permanentemente!',
                     showCancelButton: true,
                     confirmButtonClass: 'btn btn-success',
                     cancelButtonClass: 'btn btn-danger',
@@ -189,6 +196,25 @@
             });
 
         });
+
+
+
+
+        //
+        //
+        //
+        //
+        //     $("#table").DataTable({
+        //         columnDefs: [
+        //             { orderable: false, targets: [2,3] },
+        //             { searchable: false, targets: 3}
+        //         ],
+        //         language: {
+        //             url: "//cdn.datatables.net/plug-ins/1.10.18/i18n/Portuguese-Brasil.json"
+        //         }
+        //     });
+        // });
+
     </script>
 
 @endpush

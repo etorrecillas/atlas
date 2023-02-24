@@ -20,13 +20,13 @@ class MilitaryOrganizationController extends Controller
         return view('dashboard.admin.military_org.index', compact('allOm'));
     }
 
-    public function indexAjax()
-    {
-        $om = MilitaryOrganization::orderBy('short')
-            ->get();
-
-        return datatables($om)->toJson();
-    }
+//    public function indexAjax()
+//    {
+//        $om = MilitaryOrganization::orderBy('short')
+//            ->get();
+//
+//        return datatables($om)->toJson();
+//    }
 
     /**
      * Show the form for creating a new resource.
@@ -59,8 +59,10 @@ class MilitaryOrganizationController extends Controller
 
             return redirect(route('admin.om.index'))->with('msg-success', 'OM '. $newOm->short .' cadastrada com sucesso.');
         } catch (\Exception $e) {
-
-            return back()->with('msg-danger','Erro: '.$e->getMessage());
+            if(config('app.debug')) {
+                return back()->with('msg-danger','Erro: '.$e->getMessage());
+            }
+            return back()->with('msg-danger','Não foi possível cadastrar a OM '.$request->short.'. Tente novamente mais tarde.');
         }
 
     }
@@ -86,7 +88,7 @@ class MilitaryOrganizationController extends Controller
      */
     public function edit(MilitaryOrganization $militaryOrganization)
     {
-        //
+        return view('dashboard.admin.military_org.edit', compact('militaryOrganization'));
     }
 
     /**
@@ -98,7 +100,26 @@ class MilitaryOrganizationController extends Controller
      */
     public function update(Request $request, MilitaryOrganization $militaryOrganization)
     {
-        //
+        $request->validate([
+            'short' => 'required|unique:military_organizations,short,'.$militaryOrganization->id,
+            'name' => 'required|unique:military_organizations,title,'.$militaryOrganization->id,
+        ]);
+
+
+        try {
+
+            $militaryOrganization->short = $request->short;
+            $militaryOrganization->title = $request->name;
+            $militaryOrganization->save();
+
+            return redirect(route('admin.om.index'))->with('msg-success', 'Organização militar '. $militaryOrganization->short .' atualizada com sucesso');
+
+        } catch (\Exception $e) {
+            if(config('app.debug')) {
+                return back()->with('msg-danger','Erro: '.$e->getMessage());
+            }
+            return back()->with('msg-danger','Não foi possível atualizar a OM '.$militaryOrganization->short.'. Tente novamente mais tarde.');
+        }
     }
 
     /**
@@ -113,7 +134,13 @@ class MilitaryOrganizationController extends Controller
             $militaryOrganization->delete();
             return redirect(route('admin.om.index'))->with('msg-success', 'Organização militar '. $militaryOrganization->short .' removida com sucesso');
         } catch (\Exception $e) {
-            return redirect(route('admin.om.index'))->with('msg-success', 'Erro ao remover a organização militar '. $militaryOrganization->short);
+
+            if(config('app.debug')) {
+                return redirect(route('admin.om.index'))->with('msg-danger','Erro: '.$e->getMessage());
+            }
+            return redirect(route('admin.om.index'))->with('msg-danger','Erro ao remover a organização militar '. $militaryOrganization->short);
+
+
         }
     }
 }

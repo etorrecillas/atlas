@@ -207,6 +207,12 @@ return [
         'description' => 'descrição',
         'password_confirmation' => 'confirmação da senha',
         'current_password' => 'senha atual',
+        'ranking_id' => 'posto/graduação',
+        'military_branch_id' => 'quadro',
+        'specialty_id' => 'especialidade',
+        'military_organization_id' => 'OM',
+        'role_id' => 'acesso',
+
     ],
 
 ];

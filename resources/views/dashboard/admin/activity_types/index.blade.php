@@ -1,6 +1,6 @@
 @extends('layout.dashboard.index')
 
-@section('page_title', 'Administração | Organizações Militares')
+@section('page_title', 'Administração | Tipos de Atividade')
 
 @section('content')
     <div class="row">
@@ -10,53 +10,50 @@
                     <div class="card-icon">
                         <i class="material-icons">list</i>
                     </div>
-                    <h4 class="card-title">Listar OM</h4>
+                    <h4 class="card-title">Listar Tipos de Atividade</h4>
                 </div>
                 <div class="card-body ">
                     <div class="container">
                         <div class="tab-content tab-space">
                             <div class="row">
                                 <div class="table-responsive table-striped">
-                                    <table id="datatable_om" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                    <table id="datatable_type" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                         <thead>
                                         <tr>
-                                            <th data-priority="1">Sigla</th>
-                                            <th data-priority="2">Nome</th>
-                                            <th data-priority="3">Atividades</th>
-                                            <th data-priority="4">Usuários</th>
-                                            <th data-priority="5" data-orderable="false" class="disabled-sorting text-right">Ações</th>
+                                            <th data-priority="1">Nome</th>
+                                            <th data-priority="3">Sigla</th>
+                                            <th data-priority="2">Atividades</th>
+                                            <th data-priority="4" data-orderable="false" class="disabled-sorting text-right">Ações</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>Sigla</th>
                                             <th>Nome</th>
+                                            <th>Sigla</th>
                                             <th>Atividades</th>
-                                            <th>Usuários</th>
                                             <th data-orderable="false" class="disabled-sorting text-right">Ações</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        @foreach($allOm as $om)
+                                        @foreach($allTypes as $type)
                                             <tr>
-                                                <td>{{ $om->short }}</td>
-                                                <td>{{ $om->title }}</td>
-                                                <td>{{ $om->activities_count }}</td>
-                                                <td>{{ $om->users_count }}</td>
+                                                <td>{{ $type->title }}</td>
+                                                <td>{{ isset($type->short) ? $type->short : "" }}</td>
+                                                <td>{{ $type->activities()->count() }}</td>
                                                 <td>
                                                     <div class="td-actions text-right justify-content-end">
-                                                        <a href="{{ route('admin.om.show', $om) }}" class="btn btn-link btn-sm btn-primary btn-just-icon view" data-original-title="" title="">
+                                                        <a href="{{ route('admin.tipos_atividade.show', $type) }}" class="btn btn-link btn-sm btn-primary btn-just-icon view" data-original-title="" title="">
                                                             <i class="material-icons">visibility</i>
                                                         </a>
-                                                        <a href="{{ route('admin.om.edit', $om) }}" class="btn btn-link btn-sm btn-primary btn-just-icon edit" data-original-title="" title="">
+                                                        <a href="{{ route('admin.tipos_atividade.edit', $type) }}" class="btn btn-link btn-sm btn-primary btn-just-icon edit" data-original-title="" title="">
                                                             <i class="material-icons">edit</i>
                                                         </a>
-                                                        <button data-form-id="form-delete-{{ $om->id }}" class="btn btn-link btn-sm btn-danger btn-just-icon remove btn-delete">
+                                                        <button data-form-id="form-delete-{{ $type->id }}" class="btn btn-link btn-sm btn-danger btn-just-icon remove btn-delete">
                                                             <i class="material-icons">delete_forever</i>
                                                         </button>
-                                                        <form id="form-delete-{{ $om->id }}" action="{{ route('admin.om.destroy', $om) }}" class="form-horizontal" method="POST">
-                                                        @csrf
-                                                        @method("DELETE")
+                                                        <form id="form-delete-{{ $type->id }}" action="{{ route('admin.tipos_atividade.destroy', $type) }}" class="form-horizontal" method="POST">
+                                                            @csrf
+                                                            @method("DELETE")
                                                         </form>
                                                     </div>
                                                 </td>
@@ -71,7 +68,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="{{ route('admin.om.create') }}" class="btn btn-primary pull-left">+ Cadastrar nova OM</a>
+                                    <a href="{{ route('admin.tipos_atividade.create') }}" class="btn btn-primary pull-left">+ Cadastrar novo tipo de atividade</a>
                                 </div>
                             </div>
                         </div>
@@ -88,9 +85,9 @@
         $(document).ready(function () {
 
             // $.fn.dataTable.moment('DD/MM/YYYY HH:mm');
-            $('#datatable_om thead tr').clone(true).appendTo('#datatable_om thead');
-            $('#datatable_om thead tr:eq(0) th').each(function(i) {
-                var searchable = [0, 1, 2, 3];
+            $('#datatable_type thead tr').clone(true).appendTo('#datatable_type thead');
+            $('#datatable_type thead tr:eq(0) th').each(function(i) {
+                var searchable = [0, 1];
                 if (searchable.includes(i)) {
                     var title = $(this).text();
                     $(this).html('<input class="form-control form-control-sm" type="text" placeholder="Pesquisar ' + title + '" />');
@@ -109,7 +106,7 @@
                 }
             });
 
-            var table = $('#datatable_om').DataTable({
+            var table = $('#datatable_type').DataTable({
                 dom: 'lfrtipB',
                 language: {
                     "url": 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json'
@@ -161,8 +158,8 @@
                         ],
                 },
                 columnDefs: [
-                    { orderable: false, targets: [4] },
-                    { searchable: false, targets: 4}
+                    { orderable: false, targets: [3] },
+                    { searchable: false, targets: [2,3]}
                 ],
 
 
@@ -173,7 +170,7 @@
                 swal({
                     title: 'Você tem certeza?',
                     type: 'warning',
-                    text: 'Militares e atividades desta OM ficarão sem OM atribuída',
+                    text: 'Atividades deste tipo ficarão sem tipo atribuído',
                     showCancelButton: true,
                     confirmButtonClass: 'btn btn-success',
                     cancelButtonClass: 'btn btn-danger',

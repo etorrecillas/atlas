@@ -14,7 +14,9 @@ class ActivityTypeController extends Controller
      */
     public function index()
     {
-        //
+        $allTypes = ActivityType::orderBy('title')->get();
+
+        return view('dashboard.admin.activity_types.index', compact('allTypes'));
     }
 
     /**

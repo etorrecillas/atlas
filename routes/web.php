@@ -28,7 +28,9 @@ Route::middleware('auth')->group(function () {
         ->name('admin.')
         ->group(function () {
             Route::resource('om', 'MilitaryOrganizationController')->parameter('om', 'military_organization');
-//            Route::resource('users', 'Admin\UserController');
+            Route::resource('usuarios', 'UserController')->parameter('usuarios', 'user');
+            Route::post('usuarios/{user}/redefinir_senha', 'UserController@resetPassword')->name('usuarios.resetpass');
+            Route::resource('tipos_atividade', 'ActivityTypeController')->parameter('tipos_atividade', 'activity_type');
 //            Route::resource('roles', 'Admin\RoleController');
         });
 

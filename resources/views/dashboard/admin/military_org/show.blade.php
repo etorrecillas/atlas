@@ -37,7 +37,7 @@
                                 <div class="col-md-9">
                                     <div class="col-md-9 col-form-label text-left">
                                         @foreach($militaryOrganization->users() as $user)
-                                            <a href=""><span class="badge badge-primary">{{ $user->ranking->short }} {{ $user->name }}</span></a>
+                                            <a href="{{ route('admin.usuarios.show', $user) }}"><span class="badge badge-primary">{{ $user->ranking->short }} {{ $user->name }}</span></a>
                                         @endforeach
                                     </div>
                                 </div>
@@ -82,6 +82,18 @@
                             </div>
                         </div>
 {{--                        @endif--}}
+                        <hr>
+                        <div class="row">
+                            &nbsp;
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="{{ route('admin.om.edit', $militaryOrganization) }}" class="btn btn-sm btn-primary">Editar OM</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            &nbsp;
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <a href="{{ route('admin.om.index') }}" class="btn btn-primary pull-left">Voltar</a>
