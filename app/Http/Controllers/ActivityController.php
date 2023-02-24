@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\ActivityType;
+use App\Models\MilitaryOrganization;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -14,7 +16,15 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.activities.index');
+    }
+
+    public function indexAjax()
+    {
+        $list = Activity::with(['type', 'militaryOrganization'])
+            ->get();
+
+        return datatables($list)->toJson();
     }
 
     /**
@@ -24,7 +34,10 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        //
+        $militaryOrg = MilitaryOrganization::orderBy('short')->get();
+        $activityTypes = ActivityType::orderBy('title')->get();
+
+        return view('dashboard.activities.create', compact('militaryOrg', 'activityTypes'));
     }
 
     /**

@@ -1,0 +1,51 @@
+AER - Engenharia Aeronáutica
+AGC - Engenharia Agrícola
+AGR - Agronomia
+AGM - Engenharia de Agrimensura
+ADM - Administração
+AMB - Engenharia Ambiental
+ANS - Análise de Sistemas
+AQT - Arquitetura
+AQV - Arquivologia
+BIB - Biblioteconomia
+BLG - Biólogo
+CGR - Engenharia Cartográfica
+CIV - Engenharia Civil
+CMP - Engenharia da Computação
+COM - Comunicações
+ELN - Engenharia Eletrônica
+ELT - Engenharia Elétrica
+EST - Estatística
+FSU - Finanças e Subsistência
+GDS - Guarda e Segurança
+IES - Infraestrutura
+IFM - Informática
+MEC - Engenharia Mecânica
+PRU - Engenharia de Produção
+QUI - Engenharia Química
+SAD - Administração
+SBO - Bombeiro
+SCF - Cartografia
+SDE - Desenho
+SED - Segurança e Defesa
+SEG - Serviços de Engenharia
+SEL - Eletricidade
+SGS - Guarda e Segurança
+SIN - Informática
+SNT - Engenharia Sanitária
+SOB - Obras
+SPV - Pavimentação
+STB - Engenharia de Segurança do Trabalho
+STP - Topografia
+SUP - Suprimento Técnico
+SVA - Serviços Administrativos
+SVE - Serviços de Engenharia
+TAD - Administração
+TCF - Cartografia
+TDE - Desenho
+TEE - Eletricidade
+TOB - Obras
+TPV - Pavimentação
+TTP - Topografia
+NE - Não Especializado
+S/E - Sem Especialidade

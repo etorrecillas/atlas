@@ -10,7 +10,7 @@
                     <div class="card-icon">
                         <i class="material-icons">add</i>
                     </div>
-                    <h4 class="card-title">Cadastrar Novo Tipo de Atividade</h4>
+                    <h4 class="card-title">Cadastrar novo Tipo de Atividade</h4>
                 </div>
                 <div class="card-body ">
 

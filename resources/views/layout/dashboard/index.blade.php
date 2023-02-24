@@ -30,7 +30,7 @@ The above copyright notice and this permission notice shall be included in all c
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon/favicon-128.png') }}" sizes="128x128" />
     <meta name="application-name" content="&nbsp;"/>
     <meta name="msapplication-TileColor" content="#FFFFFF" />
-    <meta name="msapplication-TileImage" content="{{ asset('assets/img/favicon/mstile-144x144.png') }}" />
+    <meta name="msapplication-TileImage" content="{{ asset('assets/img/favicon/mstile-144x144.png') }}'" />
     <meta name="msapplication-square70x70logo" content="{{ asset('assets/img/favicon/mstile-70x70.png') }}" />
     <meta name="msapplication-square150x150logo" content="{{ asset('assets/img/favicon/mstile-150x150.png') }}" />
     <meta name="msapplication-wide310x150logo" content="{{ asset('assets/img/favicon/mstile-310x150.png') }}" />
@@ -60,7 +60,7 @@ The above copyright notice and this permission notice shall be included in all c
           Tip 2: you can also add an image using data-image tag
       -->
         <div class="logo"><a href="#" class="simple-text logo-mini">
-                <img width="100%" src="{{ asset('assets/img/fab/qoeng_lowres.png') }}" alt="" />
+                <img width="100%" src="{{ asset('assets/img/fab/qoeng_white.png') }}" alt="" />
             </a>
             <a href="#" class="simple-text logo-normal">
                 Sistema ATLAS
@@ -150,8 +150,8 @@ The above copyright notice and this permission notice shall be included in all c
                         </div>
                     </li>
                 @endcanany
-                <li class="nav-item {{ request()->routeIs('activities*') ? 'active' : '' }} ">
-                    <a class="nav-link" href="{{ route('home') }}">
+                <li class="nav-item {{ request()->routeIs('atividades*') ? 'active' : '' }} ">
+                    <a class="nav-link" href="{{ route('atividades.index') }}">
                         <i class="material-icons">checklist</i>
                         <p> Atividades </p>
                     </a>

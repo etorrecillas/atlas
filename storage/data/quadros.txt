@@ -1,0 +1,15 @@
+N/A - Não Aplicável
+QCB - Quadro de Cabos
+QCOA - Quadro Complementar de Oficiais
+QESA - Quadro Especial de Sargentos
+QOAP - Quadro de Oficiais de Apoio
+QOAV - Quadro de Oficiais Aviadores
+QOCON - Quadro de Oficiais Convocados
+QOENG - Quadro de Oficiais Engenheiros
+QOINF - Quadro de Oficiais de Infantaria
+QOINT - Quadro de Oficiais Intendentes
+QSD - Quadro de Soldados
+QSS - Quadro de Suboficiais e Sargentos
+QOE - Quadro de Oficiais Especialistas
+QSCON - Quadro de Sargentos Convocados
+QBCON - Quadro de Cabos Convocados

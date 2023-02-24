@@ -288,193 +288,38 @@ class SystemFreshInstallation extends Command
 
         DB::table('rankings')->insert($rankingList);
 
-        $branchesList = [
-            [
-                'title' => 'Quadro de Oficiais Aviadores',
-                'short' => 'QOAV',
+
+        $branchesFile = fopen(storage_path('data/quadros.txt'), 'r');
+
+        $branchesList = [];
+
+        while(!feof($branchesFile)) {
+            $line = fgets($branchesFile);
+            $line = explode(' - ', $line);
+            $branchesList[] = [
+                'title' => trim($line[1]),
+                'short' => $line[0],
                 'created_at' => $now,
                 'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais de Infantaria',
-                'short' => 'QOINF',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Intendentes',
-                'short' => 'QOINT',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Médicos',
-                'short' => 'QOMED',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Engenheiros',
-                'short' => 'QOENG',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Dentistas',
-                'short' => 'QODENT',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Farmacêuticos',
-                'short' => 'QOFARM',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Capelães',
-                'short' => 'QOCAPL',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Especialistas em Aeronaes',
-                'short' => 'QOEANV',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Especialistas em Armamento',
-                'short' => 'QOEARM',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Especialistas em Comunicações',
-                'short' => 'QOECOM',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Especialistas em Controle de Tráfego Aéreo',
-                'short' => 'QOECTA',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Especialistas em Foto-Interpretação',
-                'short' => 'QOEFI',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Especialistas em Meteorologia',
-                'short' => 'QOEMET',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Especialistas em Suprimento Técnico',
-                'short' => 'QOEST',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais de Apoio',
-                'short' => 'QOAP',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Técnicos',
-                'short' => 'QOTEC',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais Convocados da Reserva',
-                'short' => 'QOCON',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro Complementar de Oficiais',
-                'short' => 'QCOA',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Suboficiais e Sargentos',
-                'short' => 'QSS',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro Especial de Sargentos',
-                'short' => 'QESA',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Cabos',
-                'short' => 'QCB',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Taifeiros',
-                'short' => 'QTA',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Soldados',
-                'short' => 'QSD',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Oficiais da Reserva Remunerada',
-                'short' => 'QORR',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Quadro de Praças da Reserva Remunerada',
-                'short' => 'QPRR',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Não Aplicável',
-                'short' => 'N/A',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-        ];
+            ];
+        }
 
         DB::table('military_branches')->insert($branchesList);
 
-        $specialtiesList = [
-            [
-                'title' => 'Infraestrutura',
-                'short' => 'IES',
+        $specialtesFile = fopen(storage_path('data/especialidades.txt'), 'r');
+
+        $specialtiesList = [];
+
+        while(!feof($specialtesFile)) {
+            $line = fgets($specialtesFile);
+            $line = explode(' - ', $line);
+            $specialtiesList[] = [
+                'title' => trim($line[1]),
+                'short' => $line[0],
                 'created_at' => $now,
                 'updated_at' => $now,
-            ],
-            [
-                'title' => 'Civil',
-                'short' => 'CIV',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'title' => 'Sem Especialidade',
-                'short' => 'S/E',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ]
-        ];
+            ];
+        }
 
         DB::table('specialties')->insert($specialtiesList);
 

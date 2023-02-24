@@ -22,6 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::post('alterar_senha', 'Auth\CustomPasswordController@saveNewPassword')->name('changepass.form.do');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
+    //Dashboard
+    Route::get('/', function () {
+        return view('dashboard.home');
+    })->name('home');
+
     //Rotas Admin
     Route::middleware('admin')
         ->prefix('admin')
@@ -32,20 +37,23 @@ Route::middleware('auth')->group(function () {
             Route::post('usuarios/{user}/redefinir_senha', 'UserController@resetPassword')->name('usuarios.resetpass');
             Route::resource('tipos_atividade', 'ActivityTypeController')->parameter('tipos_atividade', 'activity_type');
             Route::get('logs', 'LogController@index')->name('logs.index');
-//            Route::resource('roles', 'Admin\RoleController');
         });
 
-    //Rotas Admin AJAX
-    Route::middleware('admin')
-        ->prefix('admin')
-        ->name('admin.ajax.')
-        ->group(function () {
-            Route::get('admin/ajax/om/index', 'MilitaryOrganizationController@indexAjax')->name('om.index');
-        });
+//    //Rotas Admin AJAX
+//    Route::middleware('admin')
+//        ->prefix('admin')
+//        ->name('admin.ajax.')
+//        ->group(function () {
+//            Route::get('admin/ajax/om/index', 'MilitaryOrganizationController@indexAjax')->name('om.index');
+//        });
 
-    Route::get('/', function () {
-        return view('dashboard.home');
-    })->name('home');
+    //Rotas Atividades
+    Route::resource('atividades', 'ActivityController')->parameter('atividades', 'activity');
+
+    //Rotas Atividades AJAX
+    Route::get('ajax/atividades', 'ActivityController@indexAjax')->name('atividades.index.ajax');
+
+
 });
 
 // Authentication Routes...
@@ -56,3 +64,4 @@ Route::post('login', 'Auth\LoginController@login');
 
 Route::get('test', 'TestController@test');
 Route::get('role', 'TestController@rolerole');
+Route::get('atv', 'ActivityController@indexAjax');

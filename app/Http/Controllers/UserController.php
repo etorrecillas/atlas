@@ -69,6 +69,7 @@ class UserController extends Controller
         try {
             $password = Hash::make(env('DEFAULT_PASSWORD'));
             $request->merge(['password' => $password]);
+            $request->email = strtolower($request->email);
 
             $user = User::create($request->all());
             $user->roles()->attach($request->role_id);
@@ -147,6 +148,8 @@ class UserController extends Controller
 
         try {
 
+            $request->email = strtolower($request->email);
+            $request->name = strtoupper($request->name);
             $user->update($request->all());
             $user->roles()->sync($request->role_id);
 
