@@ -130,19 +130,19 @@ The above copyright notice and this permission notice shall be included in all c
                                         </a>
                                     </li>
                                 @endcan
-                                @can('user_access')
-                                    <li class="nav-item  {{ request()->routeIs('admin.usuarios*') ? 'active' : '' }}">
-                                        <a class="nav-link" href="{{ route('admin.usuarios.index') }}">
-                                            <span class="sidebar-mini"> U </span>
-                                            <span class="sidebar-normal"> Usuários </span>
-                                        </a>
-                                    </li>
-                                @endcan
                                 @can('activity_type_access')
                                     <li class="nav-item  {{ request()->routeIs('admin.tipos_atividade*') ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('admin.tipos_atividade.index') }}">
                                             <span class="sidebar-mini"> TA </span>
                                             <span class="sidebar-normal"> Tipos de Atividade </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('user_access')
+                                    <li class="nav-item  {{ request()->routeIs('admin.usuarios*') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('admin.usuarios.index') }}">
+                                            <span class="sidebar-mini"> U </span>
+                                            <span class="sidebar-normal"> Usuários </span>
                                         </a>
                                     </li>
                                 @endcan

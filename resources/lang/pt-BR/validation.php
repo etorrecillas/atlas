@@ -212,6 +212,7 @@ return [
         'specialty_id' => 'especialidade',
         'military_organization_id' => 'OM',
         'role_id' => 'acesso',
+        'type' => 'tipo',
 
     ],
 

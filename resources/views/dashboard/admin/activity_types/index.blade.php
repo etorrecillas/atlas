@@ -20,7 +20,7 @@
                                     <table id="datatable_type" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                         <thead>
                                         <tr>
-                                            <th data-priority="1">Nome</th>
+                                            <th data-priority="1">Tipo</th>
                                             <th data-priority="3">Sigla</th>
                                             <th data-priority="2">Atividades</th>
                                             <th data-priority="4" data-orderable="false" class="disabled-sorting text-right">Ações</th>
@@ -28,7 +28,7 @@
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>Nome</th>
+                                            <th>Tipo</th>
                                             <th>Sigla</th>
                                             <th>Atividades</th>
                                             <th data-orderable="false" class="disabled-sorting text-right">Ações</th>

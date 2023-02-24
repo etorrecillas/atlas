@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\ActivityType;
 use App\Models\MilitaryOrganization;
 use App\Models\RoleUser;
 use App\Models\User;
+use App\Observers\ActivityTypeObserver;
 use App\Observers\MilitaryOrganizationObserver;
 use App\Observers\RoleUserObserver;
 use App\Observers\UserObserver;
@@ -32,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
         MilitaryOrganization::observe(MilitaryOrganizationObserver::class);
         User::observe(UserObserver::class);
         RoleUser::observe(RoleUserObserver::class);
+        ActivityType::observe(ActivityTypeObserver::class);
     }
 }

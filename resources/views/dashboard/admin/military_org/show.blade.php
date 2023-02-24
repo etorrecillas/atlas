@@ -49,40 +49,40 @@
                         </div>
 
 {{--                        @if($militaryOrganization->activities_count > 0)--}}
-                        <hr>
-                        <div class="row">
-                            Lista de atividades cadastradas na OM {{ $militaryOrganization->short }}
-                        </div>
-                        <div class="row">
-                            <div class="table-responsive table-striped">
-                                <table id="datatable_om" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                                    <thead>
-                                    <tr>
-                                        <th data-priority="1">Referência</th>
-                                        <th data-priority="2">Tipo</th>
-                                        <th data-priority="3">Título</th>
-                                        <th data-priority="4">Data</th>
-                                        <th data-priority="5">Valor</th>
-                                        <th data-priority="6" data-orderable="false" class="disabled-sorting text-right">Ações</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Referência</th>
-                                        <th>Tipo</th>
-                                        <th>Título</th>
-                                        <th>Data</th>
-                                        <th>Valor</th>
-                                        <th data-orderable="false" class="disabled-sorting text-right">Ações</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+{{--                        <hr>--}}
+{{--                        <div class="row">--}}
+{{--                            Lista de atividades cadastradas na OM {{ $militaryOrganization->short }}--}}
+{{--                        </div>--}}
+{{--                        <div class="row">--}}
+{{--                            <div class="table-responsive table-striped">--}}
+{{--                                <table id="datatable_om" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">--}}
+{{--                                    <thead>--}}
+{{--                                    <tr>--}}
+{{--                                        <th data-priority="1">Referência</th>--}}
+{{--                                        <th data-priority="2">Tipo</th>--}}
+{{--                                        <th data-priority="3">Título</th>--}}
+{{--                                        <th data-priority="4">Data</th>--}}
+{{--                                        <th data-priority="5">Valor</th>--}}
+{{--                                        <th data-priority="6" data-orderable="false" class="disabled-sorting text-right">Ações</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </thead>--}}
+{{--                                    <tfoot>--}}
+{{--                                    <tr>--}}
+{{--                                        <th>Referência</th>--}}
+{{--                                        <th>Tipo</th>--}}
+{{--                                        <th>Título</th>--}}
+{{--                                        <th>Data</th>--}}
+{{--                                        <th>Valor</th>--}}
+{{--                                        <th data-orderable="false" class="disabled-sorting text-right">Ações</th>--}}
+{{--                                    </tr>--}}
+{{--                                    </tfoot>--}}
+{{--                                    <tbody>--}}
+{{--                                    </tbody>--}}
+{{--                                </table>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 {{--                        @endif--}}
-                        <hr>
+{{--                        <hr>--}}
                         <div class="row">
                             &nbsp;
                         </div>

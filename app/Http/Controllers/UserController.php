@@ -52,6 +52,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($request->name)) {
+            $request->name = strtoupper($request->name);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'ranking_id' => 'required|integer|exists:rankings,id',
