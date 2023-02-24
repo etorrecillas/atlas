@@ -45,7 +45,7 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ isset($user->militaryOrg->short) ? $user->militaryOrg->short : "Sem OM" }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ $user->roles->first()->title }}</td>
+                                                <td>{{ isset($user->roles->first()->title) ? $user->roles->first()->title : "Sem Perfil" }}</td>
                                                 <td>
                                                     <div class="td-actions text-right justify-content-end">
                                                         <a href="{{ route('admin.usuarios.show', $user) }}" class="btn btn-link btn-sm btn-primary btn-just-icon view" data-original-title="" title="">

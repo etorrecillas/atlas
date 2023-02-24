@@ -6,6 +6,7 @@ use App\Models\MilitaryBranch;
 use App\Models\MilitaryOrganization;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
@@ -28,5 +29,12 @@ class TestController extends Controller
         foreach ($Specialties as $Specialty) {
             echo $Specialty->short." - ".$Specialty->title."<br>";
         }
+    }
+
+    public function rolerole()
+    {
+        $user = Auth::user();
+
+        dd($user->roles()->first()->title);
     }
 }

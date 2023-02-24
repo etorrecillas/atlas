@@ -46,6 +46,8 @@ class MilitaryOrganizationController extends Controller
      */
     public function store(Request $request)
     {
+        $request->short = strtoupper($request->short);
+
         $request->validate([
             'short' => 'required|unique:military_organizations,short',
             'name' => 'required|unique:military_organizations,title',

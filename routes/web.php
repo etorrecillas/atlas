@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('usuarios', 'UserController')->parameter('usuarios', 'user');
             Route::post('usuarios/{user}/redefinir_senha', 'UserController@resetPassword')->name('usuarios.resetpass');
             Route::resource('tipos_atividade', 'ActivityTypeController')->parameter('tipos_atividade', 'activity_type');
+            Route::get('logs', 'LogController@index')->name('logs.index');
 //            Route::resource('roles', 'Admin\RoleController');
         });
 
@@ -54,3 +55,4 @@ Route::post('login', 'Auth\LoginController@login');
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test', 'TestController@test');
+Route::get('role', 'TestController@rolerole');

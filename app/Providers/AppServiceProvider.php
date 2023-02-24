@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\MilitaryOrganization;
+use App\Models\RoleUser;
+use App\Models\User;
+use App\Observers\MilitaryOrganizationObserver;
+use App\Observers\RoleUserObserver;
+use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        MilitaryOrganization::observe(MilitaryOrganizationObserver::class);
+        User::observe(UserObserver::class);
+        RoleUser::observe(RoleUserObserver::class);
     }
 }
