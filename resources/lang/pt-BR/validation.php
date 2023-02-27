@@ -213,7 +213,21 @@ return [
         'military_organization_id' => 'OM',
         'role_id' => 'acesso',
         'type' => 'tipo',
+        'activity_type_id' => 'tipo',
+        'finished_date' => 'data de conclusão',
+        'title' => 'título',
+        'not_applicable_value' => 'a caixa N/A',
+        'value' => 'valor',
 
+    ],
+
+    'values' => [
+        'finished_date' => [
+            'today' => 'hoje',
+        ],
+        'not_applicable_value' => [
+            '1' => 'marcada',
+        ],
     ],
 
 ];

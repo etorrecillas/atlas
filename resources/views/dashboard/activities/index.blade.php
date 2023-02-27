@@ -23,8 +23,8 @@
                                             <th data-priority="1">Data de Conclusão</th>
                                             <th data-priority="2">OM</th>
                                             <th data-priority="3">Tipo</th>
-                                            <th data-priority="4">Título</th>
-                                            <th data-priority="5">Referência</th>
+                                            <th data-priority="4">Número</th>
+                                            <th data-priority="5">Título</th>
                                             <th data-priority="6">Valor</th>
                                             <th data-priority="7" data-orderable="false" class="disabled-sorting text-right">Detalhes</th>
                                         </tr>
@@ -34,8 +34,8 @@
                                             <th>Data de Conclusão</th>
                                             <th>OM</th>
                                             <th>Tipo</th>
+                                            <th>Número</th>
                                             <th>Título</th>
-                                            <th>Referência</th>
                                             <th>Valor</th>
                                             <th data-orderable="false" class="disabled-sorting text-right">Detalhes</th>
                                         </tr>
@@ -102,7 +102,7 @@
             $.fn.dataTable.moment('DD/MM/YYYY');
             $('#datatable_atv thead tr').clone(true).appendTo('#datatable_atv thead');
             $('#datatable_atv thead tr:eq(0) th').each(function(i) {
-                var searchable = [0, 1, 2, 3, 4, 5];
+                var searchable = [0, 1, 2, 3, 4];
                 if (searchable.includes(i)) {
                     var title = $(this).text();
                     $(this).html('<input class="form-control form-control-sm" type="text" placeholder="Pesquisar ' + title + '" />');
@@ -127,7 +127,7 @@
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json'
                 },
-                // order: [[0, 'desc']],
+                order: [[0, 'desc']],
                 pagingType: "full_numbers",
                 lengthMenu: [
                     [10, 25, 50, 100],
@@ -137,10 +137,10 @@
                 ajax: "{{ route('atividades.index.ajax') }}",
                 columns: [
                     {"data": "finish_date"},
-                    {"data": "military_organization.short"},
+                    {"data": "om_name"},
                     {"data": "type_name"},
-                    {"data": "title"},
                     {"data": "reference_number"},
+                    {"data": "title"},
                     {
                         "data": "value",
                         "render": $(this).DataTable.render.number('.', ',', 2, 'R$ ')
@@ -154,7 +154,7 @@
                             {
                                 extend: "excelHtml5",
                                 className: "btn-sm btn-success",
-                                title: "atlas_lista_om",
+                                title: "atlas_lista_atividades",
                                 exportOptions: {
                                     columns: ':not(:last-child)',
                                 }
@@ -162,7 +162,7 @@
                             {
                                 extend: "pdfHtml5",
                                 className: "btn-sm btn-danger",
-                                title: "atlas_lista_om",
+                                title: "atlas_lista_atividades",
                                 exportOptions: {
                                     columns: ':not(:last-child)',
                                 }
@@ -170,7 +170,7 @@
                             {
                                 extend: "copyHtml5",
                                 className: "btn-sm btn-info",
-                                title: "atlas_lista_om",
+                                title: "atlas_lista_atividades",
                                 text: "Copiar",
                                 exportOptions: {
                                     columns: ':not(:last-child)',
@@ -179,7 +179,7 @@
                             {
                                 extend: "print",
                                 className: "btn-sm btn-info",
-                                title: "atlas_lista_om",
+                                title: "atlas_lista_atividades",
                                 text: "Imprimir",
                                 exportOptions: {
                                     columns: ':not(:last-child)',
@@ -188,7 +188,7 @@
                         ],
                 },
                 columnDefs: [
-                    { orderable: false, targets: [0,5] },
+                    { orderable: false, targets: [5, 6] },
                     { searchable: false, targets: 6},
                     {
                         targets: -1,
@@ -222,24 +222,6 @@
             });
 
         });
-
-
-
-
-        //
-        //
-        //
-        //
-        //     $("#table").DataTable({
-        //         columnDefs: [
-        //             { orderable: false, targets: [2,3] },
-        //             { searchable: false, targets: 3}
-        //         ],
-        //         language: {
-        //             url: "//cdn.datatables.net/plug-ins/1.10.18/i18n/Portuguese-Brasil.json"
-        //         }
-        //     });
-        // });
 
     </script>
 

@@ -70,6 +70,7 @@ class UserController extends Controller
             $password = Hash::make(env('DEFAULT_PASSWORD'));
             $request->merge(['password' => $password]);
             $request->email = strtolower($request->email);
+            $request->name = strtoupper($request->name);
 
             $user = User::create($request->all());
             $user->roles()->attach($request->role_id);
@@ -187,7 +188,7 @@ class UserController extends Controller
             if(config('app.debug')) {
                 return redirect(route('admin.usuarios.index'))->with('msg-danger','Erro: '.$e->getMessage());
             }
-            return redirect(route('admin.usuarios.index'))->with('msg-danger','Erro ao remover o usuário '. $$user->email);
+            return redirect(route('admin.usuarios.index'))->with('msg-danger','Erro ao remover o usuário '. $user->email);
 
 
         }

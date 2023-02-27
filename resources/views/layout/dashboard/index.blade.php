@@ -146,6 +146,14 @@ The above copyright notice and this permission notice shall be included in all c
                                         </a>
                                     </li>
                                 @endcan
+                                @can('integrity_access')
+                                    <li class="nav-item  {{ request()->routeIs('admin.integridade*') ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('admin.integridade.index') }}">
+                                            <span class="sidebar-mini"> VI </span>
+                                            <span class="sidebar-normal"> Verificação de Integridade </span>
+                                        </a>
+                                    </li>
+                                @endcan
                             </ul>
                         </div>
                     </li>
@@ -157,7 +165,7 @@ The above copyright notice and this permission notice shall be included in all c
                     </a>
                 </li>
                 <li class="nav-item {{ request()->routeIs('reports*') ? 'active' : '' }} ">
-                    <a class="nav-link" href="{{ route('home') }}">
+                    <a class="nav-link" href="#">
                         <i class="material-icons">assignment</i>
                         <p> Relatórios </p>
                     </a>
@@ -223,6 +231,7 @@ The above copyright notice and this permission notice shall be included in all c
 <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
 <!-- Plugin for the momentJs  -->
 <script src="{{ asset('assets/js/plugins/moment.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/moment-with-locales.min.js') }}"></script>
 <!--  Plugin for Sweet Alert -->
 <script src="{{ asset('assets/js/plugins/sweetalert2.js') }}"></script>
 <!-- Forms Validations Plugin -->
@@ -249,8 +258,8 @@ The above copyright notice and this permission notice shall be included in all c
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 <!-- Library for adding dinamically elements -->
 <script src="{{ asset('assets/js/plugins/arrive.min.js') }}"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+{{--<!--  Google Maps Plugin    -->--}}
+{{--<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>--}}
 <!-- Chartist JS -->
 <script src="{{ asset('assets/js/plugins/chartist.min.js') }}"></script>
 <!--  Notifications Plugin    -->

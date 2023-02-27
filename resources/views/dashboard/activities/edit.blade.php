@@ -1,6 +1,6 @@
 @extends('layout.dashboard.index')
 
-@section('page_title', 'Atividades | Cadastrar Nova Atividade')
+@section('page_title', 'Atividades | Editar Atividade')
 
 @section('content')
     <div class="row">
@@ -8,16 +8,17 @@
             <div class="card">
                 <div class="card-header card-header-icon card-header-primary">
                     <div class="card-icon">
-                        <i class="material-icons">add</i>
+                        <i class="material-icons">edit_note</i>
                     </div>
-                    <h4 class="card-title">Cadastrar nova Atividade</h4>
+                    <h4 class="card-title">Editar Atividade {{ $activity->type_name . ': '.$activity->title . ' (' . $activity->om_name .')' }}</h4>
                 </div>
                 <div class="card-body ">
 
                     <div class="container">
                         <div class="tab-content tab-space">
-                            <form id="atvCreate" action="{{ route('atividades.store') }}" method="post" novalidate="novalidate">
+                            <form id="atvUpdate" action="{{ route('atividades.update', $activity) }}" method="post" novalidate="novalidate">
                                 @csrf
+                                @method('PUT')
                                 @if(auth()->user()->isAdmin())
                                 <div class="row">
                                     <label class="col-sm-3 col-md-2 col-form-label">OM*</label>
@@ -25,7 +26,7 @@
                                         <div class="dropdown bootstrap-select form-group" style="margin-top: 0px;">
                                             <select name="military_organization_id" class="selectpicker" data-style="select-with-transition" title="Selecionar" data-size="7" data-live-search="true" required aria-required="true">
                                                 @foreach($militaryOrg as $om)
-                                                    <option value="{{ $om->id }}" {{ old('military_organization_id') == $om->id ? "selected" : ""}}>{{ $om->short }} ({{ $om->title }}) </option>
+                                                    <option value="{{ $om->id }}" {{ old('military_organization_id', $activity->military_organization_id) == $om->id ? "selected" : ""}}>{{ $om->short }} ({{ $om->title }}) </option>
                                                 @endforeach
                                             </select>
                                             @error('military_organization_id')<label style="margin-top: 50px; width: 300px;" id="email-error" class="error" for="code">{{ $message }}</label>@enderror
@@ -49,8 +50,11 @@
                                 <div class="row">
                                     <label class="col-sm-3 col-md-2 col-form-label">Data de Conclusão*</label>
                                     <div class="col-sm-9 col-md-10">
+                                        @php
+                                        !is_null(old('finished_date')) ? $finished_date = old('finished_date') : $finished_date = $activity->finished_date->format('d/m/Y');
+                                        @endphp
                                         <div class="form-group bmd-form-group @error('finished_date') is-focused @enderror">
-                                            <input value="{{ old('finished_date') ? \Carbon\Carbon::createFromFormat('Y-m-d', old('finished_date'))->format('d/m/Y') : '' }}" type="text" name="finished_date" class="form-control datepicker @error('finished_date') error @enderror " required aria-required="true">
+                                            <input value="{{ $finished_date }}" type="text" name="finished_date" class="form-control datepicker @error('finished_date') error @enderror " required aria-required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -60,10 +64,10 @@
                                         <div class="dropdown bootstrap-select form-group" style="margin-top: 0px;">
                                             <select name="activity_type_id" class="selectpicker" data-style="select-with-transition" title="Selecionar" data-size="7" data-live-search="true" required aria-required="true">
                                                 @foreach($activityTypes as $type)
-                                                    <option value="{{ $type->id }}" {{ old('activity_type_id') == $type->id ? "selected" : ""}}>{{ isset($type->short) ? $type->title." (".$type->short.")" : $type->title }}</option>
+                                                    <option value="{{ $type->id }}" {{ old('activity_type_id', $activity->activity_type_id) == $type->id ? "selected" : ""}}>{{ isset($type->short) ? $type->title." (".$type->short.")" : $type->title }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('military_organization_id')<label style="margin-top: 50px; width: 300px;" id="email-error" class="error" for="code">{{ $message }}</label>@enderror
+                                            @error('activity_type_id')<label style="margin-top: 50px; width: 300px;" id="email-error" class="error" for="code">{{ $message }}</label>@enderror
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +75,7 @@
                                     <label class="col-sm-3 col-md-2 col-form-label">Número</label>
                                     <div class="col-sm-9 col-md-10">
                                         <div class="form-group bmd-form-group @error('reference_number') is-focused @enderror">
-                                            <input value="{{ old('reference_number') }}" name="reference_number" type="text" class="form-control @error('reference_number') error @enderror">
+                                            <input value="{{ old('reference_number', $activity->reference_number) }}" name="reference_number" type="text" class="form-control @error('reference_number') error @enderror">
                                             <span class="bmd-help">Ex.: 01/RT/DTINFRA-SP/21022023</span>
                                         </div>
                                     </div>
@@ -80,7 +84,7 @@
                                     <label class="col-sm-3 col-md-2 col-form-label">Título*</label>
                                     <div class="col-sm-9 col-md-10">
                                         <div class="form-group bmd-form-group @error('title') is-focused @enderror">
-                                            <input value="{{ old('title') }}" name="title" type="text" class="form-control @error('title') error @enderror" required aria-required="true">
+                                            <input value="{{ old('title', $activity->title) }}" name="title" type="text" class="form-control @error('title') error @enderror" required aria-required="true">
                                             <span class="bmd-help">Ex.: Relatório de Desenvolvimento do Sistema ATLAS</span>
                                         </div>
                                     </div>
@@ -89,14 +93,14 @@
                                     <label class="col-sm-3 col-md-2 col-form-label">Valor*</label>
                                     <div class="col-sm-3 col-md-2" id="value_div">
                                         <div class="form-group bmd-form-group @error('value') is-focused @enderror">
-                                            <input name="value" value="{{ old('front_value') }}" id="value" type="text" class="form-control @error('value') error @enderror">
+                                            <input name="value" value="{{ old('front_value', $activity->value_show) }}" id="value" type="text" class="form-control @error('value') error @enderror">
                                         </div>
                                     </div>
                                     <div class="col-sm-3 col-md-2">
                                         <div class="form-group bmd-form-group @error('value') is-focused @enderror">
                                             <div style="padding-top: 10px;" class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" id="checkbox_na" type="checkbox" name="not_applicable_value" value="1" {{ old('not_applicable_value') == 1 ? 'checked' : '' }}> N/A
+                                                    <input class="form-check-input" id="checkbox_na" type="checkbox" name="not_applicable_value" value="1" {{ (old('not_applicable_value') == 1 || is_null($activity->value_in_cents))? 'checked' : '' }}> N/A
                                                     <span class="form-check-sign">
                                                         <span class="check"></span>
                                                     </span>
@@ -109,7 +113,7 @@
                                     <label class="col-sm-3 col-md-2 col-form-label">Observações</label>
                                     <div class="col-sm-9 col-md-10">
                                         <div class="form-group bmd-form-group @error('comments') is-focused @enderror">
-                                            <textarea rows="6" class="form-control @error('comments') error @enderror" name="comments">{!! old('comments') !!}</textarea>
+                                            <textarea rows="6" class="form-control @error('comments') error @enderror" name="comments">{!! old('comments', $activity->comments) !!}</textarea>
                                             <span class="bmd-help">Ex.: Digite observações que julgar relevante (máx. 250 caracteres)</span>
                                         </div>
                                     </div>
@@ -130,7 +134,7 @@
                                     <div class="col-sm-9 col-md-10">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <button class="btn btn-primary pull-left" type="submit">Cadastrar</button>
+                                                <button class="btn btn-primary pull-left" type="submit">Salvar Alterações</button>
                                             </div>
                                         </div>
                                     </div>
@@ -141,7 +145,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a href="{{ route('atividades.index') }}" class="btn btn-primary pull-left">Voltar</a>
+                                    <a href="{{ route('atividades.show', $activity) }}" class="btn btn-primary pull-left">Voltar</a>
                                 </div>
                             </div>
                         </div>
@@ -208,7 +212,7 @@
 
 
 
-            $("#atvCreate").validate({
+            $("#atvUpdate").validate({
                 rules: {
                     comments: {
                         maxlength: 250

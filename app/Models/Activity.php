@@ -10,13 +10,18 @@ class Activity extends Model
         'finish_date',
         'type_name',
         'value',
+        'om_name'
     ];
 
     protected $fillable = [
-        'title',
-        'short',
         'activity_type_id',
         'military_organization_id',
+        'user_name',
+        'title',
+        'finished_date',
+        'reference_number',
+        'comments',
+        'value_in_cents',
     ];
 
     protected $casts = [
@@ -31,11 +36,25 @@ class Activity extends Model
 
     public function getTypeNameAttribute()
     {
-        if(isset($this->type->short)) {
-            return $this->type->title. ' (' . $this->type->short . ')';
+        if(isset($this->type->id)) {
+            if(isset($this->type->short)) {
+                return $this->type->title. ' (' . $this->type->short . ')';
+            } else {
+                return $this->type->title;
+            }
         } else {
-            return $this->type->name;
+            return "Sem Tipo";
         }
+    }
+
+    public function getOmNameAttribute()
+    {
+        if(isset($this->militaryOrganization->id)) {
+            return $this->militaryOrganization->short;
+        } else {
+            return "Sem OM";
+        }
+
     }
 
     public function getValueAttribute()
@@ -46,6 +65,17 @@ class Activity extends Model
         } else {
             return "N/A";
         }
+    }
+
+    public function getValueShowAttribute()
+    {
+        if(isset($this->value_in_cents)) {
+//            return $this->value_in_cents/100;
+            return "R$ ".number_format($this->value_in_cents/100,2, ',', '.');
+        } else {
+            return "N/A";
+        }
+
     }
 
     //Relationships

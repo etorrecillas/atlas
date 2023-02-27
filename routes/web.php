@@ -23,9 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
     //Dashboard
-    Route::get('/', function () {
-        return view('dashboard.home');
-    })->name('home');
+    Route::get('/', 'DashboardController@index')->name('home');
+    Route::get('ajaxChart', 'DashboardController@ajaxChart')->name('ajaxChart');
 
     //Rotas Admin
     Route::middleware('admin')
@@ -37,15 +36,9 @@ Route::middleware('auth')->group(function () {
             Route::post('usuarios/{user}/redefinir_senha', 'UserController@resetPassword')->name('usuarios.resetpass');
             Route::resource('tipos_atividade', 'ActivityTypeController')->parameter('tipos_atividade', 'activity_type');
             Route::get('logs', 'LogController@index')->name('logs.index');
+            Route::get('ajax/logs', 'LogController@indexAjax')->name('logs.index.ajax');
+            Route::get('integridade', 'IntegrityController@index')->name('integridade.index');
         });
-
-//    //Rotas Admin AJAX
-//    Route::middleware('admin')
-//        ->prefix('admin')
-//        ->name('admin.ajax.')
-//        ->group(function () {
-//            Route::get('admin/ajax/om/index', 'MilitaryOrganizationController@indexAjax')->name('om.index');
-//        });
 
     //Rotas Atividades
     Route::resource('atividades', 'ActivityController')->parameter('atividades', 'activity');
@@ -60,8 +53,3 @@ Route::middleware('auth')->group(function () {
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 
-//Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('test', 'TestController@test');
-Route::get('role', 'TestController@rolerole');
-Route::get('atv', 'ActivityController@indexAjax');

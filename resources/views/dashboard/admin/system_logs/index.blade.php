@@ -33,10 +33,10 @@
                                         </tr>
                                         </tfoot>
                                         <tbody>
-                                        @foreach($allLogs as $log)
-                                            <tr>
-                                                <td>{{ $log->created_at->format('d/m/Y H:i') }}</td>
-                                                <td>{{ $log->message }}</td>
+{{--                                        @foreach($allLogs as $log)--}}
+{{--                                            <tr>--}}
+{{--                                                <td>{{ $log->created_at->format('d/m/Y H:i') }}</td>--}}
+{{--                                                <td>{{ $log->message }}</td>--}}
 {{--                                                <td>--}}
 {{--                                                    <div class="td-actions text-right justify-content-end">--}}
 {{--                                                        <a href="{{ route('admin.om.show', $om) }}" class="btn btn-link btn-sm btn-primary btn-just-icon view" data-original-title="" title="">--}}
@@ -54,8 +54,8 @@
 {{--                                                        </form>--}}
 {{--                                                    </div>--}}
 {{--                                                </td>--}}
-                                            </tr>
-                                        @endforeach
+{{--                                            </tr>--}}
+{{--                                        @endforeach--}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -113,6 +113,13 @@
                     [10, 25, 50, 100],
                     [10, 25, 50, 100]
                 ],
+                processing: true,
+                ajax: "{{ route('admin.logs.index.ajax') }}",
+                columns: [
+                    {"data": "log_date"},
+                    {"data": "message"},
+                ],
+
                 responsive: true,
                 buttons: {
                     buttons:

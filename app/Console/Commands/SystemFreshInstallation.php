@@ -111,6 +111,12 @@ class SystemFreshInstallation extends Command
                 'description' => 'Permissão para acessar o módulo de logs',
                 'created_at' => $now,
                 'updated_at' => $now,
+            ],
+            [
+                'title' => 'integrity_access',
+                'description' => 'Permissão para acessar o módulo de verificação de integridade',
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         ];
 
@@ -144,6 +150,10 @@ class SystemFreshInstallation extends Command
             [
                 'role_id' => 1,
                 'permission_id' => 7,
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 8,
             ],
             [
                 'role_id' => 2,

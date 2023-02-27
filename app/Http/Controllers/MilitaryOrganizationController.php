@@ -56,6 +56,9 @@ class MilitaryOrganizationController extends Controller
         ]);
 
         try {
+
+//            $request->short = strtoupper($request->short);
+
             $newOm = MilitaryOrganization::create([
                 'short' => $request->short,
                 'title' => $request->name,
@@ -112,7 +115,7 @@ class MilitaryOrganizationController extends Controller
 
         try {
 
-            $militaryOrganization->short = $request->short;
+            $militaryOrganization->short = strtoupper($request->short);
             $militaryOrganization->title = $request->name;
             $militaryOrganization->save();
 
