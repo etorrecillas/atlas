@@ -21,22 +21,29 @@ class IntegrityService {
             ->orderBy('title')
             ->get();
 
+        $activitiesWithoutSector = Activity::whereNull('sector')
+            ->orderBy('title')
+            ->get();
+
         $viewClasses = [
             $usersWithoutOm->count() > 0 ? 'danger' : 'success',
             $activitiesWithoutOm->count() > 0 ? 'danger' : 'success',
             $activitiesWithoutType->count() > 0 ? 'danger' : 'success',
+            $activitiesWithoutSector->count() > 0 ? 'danger' : 'success',
         ];
 
         $footerText = [
             $usersWithoutOm->count() > 0 ? 'corrigir' : 'nenhuma ação pendente',
             $activitiesWithoutOm->count() > 0 ? 'corrigir' : 'nenhuma ação pendente',
             $activitiesWithoutType->count() > 0 ? 'corrigir' : 'nenhuma ação pendente',
+            $activitiesWithoutSector->count() > 0 ? 'corrigir' : 'nenhuma ação pendente',
         ];
 
         $footerIcon = [
             $usersWithoutOm->count() > 0 ? 'warning' : 'thumb_up',
             $activitiesWithoutOm->count() > 0 ? 'warning' : 'thumb_up',
             $activitiesWithoutType->count() > 0 ? 'warning' : 'thumb_up',
+            $activitiesWithoutSector->count() > 0 ? 'warning' : 'thumb_up',
         ];
 
         return [
@@ -69,6 +76,16 @@ class IntegrityService {
                 'icon' => 'format_list_bulleted',
                 'footerText' => $footerText[2],
                 'footerIcon' => $footerIcon[2],
+            ],
+            [
+                'title' => 'atividade(s) sem subdiretoria',
+                'count' => $activitiesWithoutSector->count(),
+                'viewClass' => $viewClasses[3],
+                'data' => $activitiesWithoutType,
+                'adjustmentRoute' => 'atividades.index',
+                'icon' => 'format_list_bulleted',
+                'footerText' => $footerText[3],
+                'footerIcon' => $footerIcon[3],
             ],
         ];
 

@@ -55,6 +55,19 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <label class="col-sm-3 col-md-2 col-form-label">Subdiretoria*</label>
+                                    <div class="col-sm-9 col-md-10">
+                                        <div class="dropdown bootstrap-select form-group" style="margin-top: 0px;">
+                                            <select name="sector" class="selectpicker" data-style="select-with-transition" title="Selecionar" data-size="3" data-live-search="true" required aria-required="true">
+                                                <option value="SDA" {{ old('sector') == "SDA" ? "selected" : ""}}>SDA (Administração)</option>
+                                                <option value="SDE" {{ old('sector') == "SDE" ? "selected" : ""}}>SDE (Engenharia)</option>
+                                                <option value="SDP" {{ old('sector') == "SDP" ? "selected" : ""}}>SDP (Patrimônio)</option>
+                                            </select>
+                                            @error('sector')<label style="margin-top: 50px; width: 300px;" id="sector-error" class="error" for="code">{{ $message }}</label>@enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <label class="col-sm-3 col-md-2 col-form-label">Tipo*</label>
                                     <div class="col-sm-9 col-md-10">
                                         <div class="dropdown bootstrap-select form-group" style="margin-top: 0px;">
@@ -222,6 +235,7 @@
                     finished_date: "Informe a data de conclusão",
                     activity_type_id: "Selecione o tipo de atividade",
                     title: "Informe o título da atividade",
+                    sector: "Selecione a subdiretoria",
                 }
             });
         });

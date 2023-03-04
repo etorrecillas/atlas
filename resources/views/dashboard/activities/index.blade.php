@@ -138,7 +138,7 @@
                 columns: [
                     {"data": "finish_date"},
                     {"data": "om_name"},
-                    {"data": "type_name"},
+                    {"data": "type_act_index"},
                     {"data": "reference_number"},
                     {"data": "title"},
                     {

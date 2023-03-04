@@ -49,11 +49,18 @@ class ActivityObserver
             'reference_number' => 'Número',
             'comments' => 'Observações',
             'value_in_cents' => 'Valor',
+            'sector' => 'Subdiretoria',
         ];
 
         foreach ($activity->getChanges() as $key => $value) {
             if ($key == 'updated_at') {
                 unset($activity->getChanges()[$key]);
+            }
+            elseif ($key == 'sector') {
+                if($activity->getOriginal($key) == null)
+                    $changeStr.= $mapping[$key] . ': Sem subdiretoria => ' . $value . '; ';
+                else
+                    $changeStr.= $mapping[$key] . ': ' . $activity->getOriginal($key) . ' => ' . $value . '; ';
             }
             elseif ($key == 'activity_type_id') {
                 if($activity->getOriginal($key) == null)

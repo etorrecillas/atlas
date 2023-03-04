@@ -10,7 +10,9 @@ class Activity extends Model
         'finish_date',
         'type_name',
         'value',
-        'om_name'
+        'om_name',
+        'sector_view',
+        'type_act_index',
     ];
 
     protected $fillable = [
@@ -22,6 +24,7 @@ class Activity extends Model
         'reference_number',
         'comments',
         'value_in_cents',
+        'sector',
     ];
 
     protected $casts = [
@@ -36,6 +39,7 @@ class Activity extends Model
 
     public function getTypeNameAttribute()
     {
+
         if(isset($this->type->id)) {
             if(isset($this->type->short)) {
                 return $this->type->title. ' (' . $this->type->short . ')';
@@ -45,6 +49,29 @@ class Activity extends Model
         } else {
             return "Sem Tipo";
         }
+
+//        if(isset($this->sector)) {
+//            $str .= " ***".$this->sector."***";
+//        } else {
+//            $str .= " ***Sem Sub***";
+//        }
+//
+//        return $str;
+
+    }
+
+    public function getSectorViewAttribute()
+    {
+        if(isset($this->sector)) {
+            return $this->sector;
+        } else {
+            return "Sem Sub";
+        }
+    }
+
+    public function getTypeActIndexAttribute()
+    {
+        return $this->type_name . " ***" . $this->sector_view . "***";
     }
 
     public function getOmNameAttribute()

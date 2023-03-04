@@ -5,7 +5,7 @@
 @section('content')
     <div class="row">
         @foreach($integrityData as $card)
-        <div class="col-lg-4 col-sm-4">
+        <div class="col-lg-3 col-sm-3">
                 <div class="card card-stats">
                     <div class="card-header card-header-{{ $card['viewClass'] }} card-header-icon">
                         <div class="card-icon">

@@ -90,6 +90,7 @@ class ActivityController extends Controller
             'value' => 'nullable|required_unless:not_applicable_value,1|numeric|min:0',
             'comments' => 'nullable|string|max:250',
             'front_value' => 'nullable',
+            'sector' => 'required|string|max:3',
         ]);
 
         try {
@@ -193,6 +194,7 @@ class ActivityController extends Controller
             'value' => 'nullable|required_unless:not_applicable_value,1|numeric|min:0',
             'comments' => 'nullable|string|max:250',
             'front_value' => 'nullable',
+            'sector' => 'required|string|max:3',
         ]);
 
         try {

@@ -218,6 +218,7 @@ return [
         'title' => 'título',
         'not_applicable_value' => 'a caixa N/A',
         'value' => 'valor',
+        'sector' => 'subdiretoria',
 
     ],
 

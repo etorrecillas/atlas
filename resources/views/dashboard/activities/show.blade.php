@@ -33,6 +33,14 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <label class="col-md-3 col-form-label">Subdiretoria</label>
+                                <div class="col-md-9">
+                                    <div class="col-md-9 col-form-label text-left">
+                                        <p>{{ isset($activity->sector) ? $activity->sector : "Sem Subdiretoria" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <label class="col-md-3 col-form-label">Tipo</label>
                                 <div class="col-md-9">
                                     <div class="col-md-9 col-form-label text-left">
