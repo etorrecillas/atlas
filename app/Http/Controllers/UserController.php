@@ -67,14 +67,14 @@ class UserController extends Controller
         ]);
 
         try {
-            $password = Hash::make(env('DEFAULT_PASSWORD'));
+            $password = Hash::make('@tlas123');
             $request->merge(['password' => $password]);
             $request->email = strtolower($request->email);
             $request->name = strtoupper($request->name);
 
             $user = User::create($request->all());
             $user->roles()->attach($request->role_id);
-            return redirect(route('admin.usuarios.index'))->with('msg-success', 'Usuário ' . $user->email . ' criado com sucesso com a senha padrão: '.env('DEFAULT_PASSWORD'));
+            return redirect(route('admin.usuarios.index'))->with('msg-success', 'Usuário ' . $user->email . ' criado com sucesso com a senha padrão: @tlas123');
         } catch (\Exception $e) {
 
             if (config('app.debug')) {
@@ -203,11 +203,11 @@ class UserController extends Controller
     public function resetPassword(User $user)
     {
         try {
-            $hash = Hash::make(env('DEFAULT_PASSWORD'));
+            $hash = Hash::make('@tlas123');
             $user->password = $hash;
             $user->save();
 
-            return redirect()->back()->with('msg-success', 'Senha do usuário '. $user->email .' redefinida para '.env("DEFAULT_PASSWORD").' com sucesso');
+            return redirect()->back()->with('msg-success', 'Senha do usuário '. $user->email .' redefinida para @tlas123 com sucesso');
         } catch (\Exception $e) {
 
             if(config('app.debug')) {
