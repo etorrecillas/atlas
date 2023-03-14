@@ -201,9 +201,15 @@ class ActivityController extends Controller
                 'value_in_cents' => $request->value,
             ]);
 
-            $activity->update($request->all());
+            if(Auth::user()->isAdmin() || Auth::user()->militaryOrg->id == $activity->military_organization_id) {
+                $activity->update($request->all());
 
-            return redirect()->back()->with('msg-success', 'Atividade atualizada com sucesso!');
+                return redirect()->back()->with('msg-success', 'Atividade atualizada com sucesso!');
+
+            } else {
+                return redirect()->back()->with('msg-danger', 'Você não pode atualizar esta atividade.');
+            }
+
 
 
         } catch (\Exception $e) {
