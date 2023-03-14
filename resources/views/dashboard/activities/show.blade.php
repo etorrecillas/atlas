@@ -92,7 +92,7 @@
                                 &nbsp;
                             </div>
                         </div>
-                        @if(auth()->user()->isAdmin() || auth()->user()->id == $activity->military_organization_id)
+                        @if(auth()->user()->isAdmin() || auth()->user()->militaryOrg->id == $activity->military_organization_id)
                         <div class="row">
                             &nbsp;
                         </div>
