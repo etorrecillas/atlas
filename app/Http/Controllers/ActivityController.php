@@ -148,7 +148,13 @@ class ActivityController extends Controller
         $militaryOrg = MilitaryOrganization::orderBy('short')->get();
         $activityTypes = ActivityType::orderBy('title')->get();
 
-        return view('dashboard.activities.edit', compact('activity', 'militaryOrg', 'activityTypes'));
+        if(Auth::user()->isAdmin() || Auth::user()->militaryOrg->id == $activity->military_organization_id) {
+
+            return view('dashboard.activities.edit', compact('activity', 'militaryOrg', 'activityTypes'));
+
+        } else {
+            return redirect()->back()->with('msg-danger', 'Você não pode atualizar esta atividade.');
+        }
     }
 
     /**
